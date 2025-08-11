@@ -1,1 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDON Training and Research Laboratory for TEIN NRENs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #9A2AA0;
+            --secondary: #DA3FA3;
+            --body: #FCF5EC;
+            --text: #1D1D1B;
+            --secondary-dark: #4E245C;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--body);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+            transition: transform 0.3s ease;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .hero-text h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .hero-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--secondary-dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            background-color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary);
+        }
+
+        .section h2 {
+            color: var(--secondary-dark);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .innovation-highlight {
+            background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+            border-left-color: #3b82f6;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .innovation-highlight h4 {
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(154, 42, 160, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .countries-collaboration {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .country-card {
+            background: var(--body);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .country-card:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .country-card.lead {
+            background: var(--primary);
+            color: white;
+        }
+
+        .sdon-technologies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .sdon-card {
+            background: linear-gradient(135deg, var(--secondary-dark), #6a3775);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .sdon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(78, 36, 92, 0.3);
+        }
+
+        .sdon-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .sdon-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .lab-equipment {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .equipment-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .equipment-item:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .training-program {
+            background: var(--body);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .training-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .training-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-icon {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .step-content h4 {
+            color: var(--secondary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .covid-adaptation {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left-color: #fd79a8;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .covid-adaptation h4 {
+            color: #d63031;
+            margin-bottom: 0.5rem;
+        }
+
+        .research-outcomes {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            border-left-color: #28a745;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .research-outcomes h4 {
+            color: #155724;
+            margin-bottom: 1rem;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .partner-card {
+            background: var(--body);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .partner-card.lead {
+            background: var(--primary);
+            color: white;
+        }
+
+        .outcomes {
+            background: linear-gradient(135deg, #fff, #e8f5e8);
+            border-left-color: #27ae60;
+        }
+
+        .challenges {
+            background: linear-gradient(135deg, #fff, var(--body));
+            border-left-color: #e74c3c;
+        }
+
+        .pakistan-flag {
+            display: inline-block;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .sdg-badges {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .sdg-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logos {
+                justify-content: center;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .training-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .logo {
+                height: 40px;
+            }
+
+            .logos {
+                gap: 1rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logos">
+                    <img src="images/logos/eu-logo.png" alt="European Union" class="logo">
+                    <img src="images/logos/tein-logo.png" alt="TEIN CC" class="logo">
+                    <img src="images/logos/asia-connect-logo.png" alt="Asia Connect" class="logo">
+                </div>
+                <div class="hero-text">
+                    <h1>SDON Training & Research Laboratory</h1>
+                    <p>Software Defined Optical Networks for TEIN NRENs</p>
+                    <div class="hero-badge"><span class="pakistan-flag">🇵🇰</span>Pakistan • 3rd Call • NUST-SSSA Partnership</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#laboratory">Laboratory</a></li>
+                <li><a href="#training">Training</a></li>
+                <li><a href="#outcomes">Outcomes</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#future">Future</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="overview" class="section">
+            <h2>Project Overview</h2>
+            <p>This project established a Software Defined Optical Networking (SDON) research and training laboratory at NUST (Pakistan), in partnership with Scuola Superiore Sant'Anna (SSSA, Italy), to bridge the skills gap in optical networking among TEIN NRENs. The lab serves as a <span class="highlight">remote-accessible testbed and training platform</span>, equipped with white box optical systems and programmable tools for advanced research and education.</p>
+            
+            <div class="innovation-highlight">
+                <h4>🔬 Cutting-Edge Optical Networking Research</h4>
+                <p>The SDON laboratory enables pioneering research in programmable optical networks, SDN controllers, and next-generation telecommunications infrastructure for TEIN partner institutions.</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div>Researchers Trained</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">55</div>
+                    <div>Workshop Participants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div>Research Publications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div>Partner Countries</div>
+                </div>
+            </div>
+
+            <h3>🌍 International Collaboration</h3>
+            <div class="countries-collaboration">
+                <div class="country-card lead">🇵🇰 Pakistan (Lead)</div>
+                <div class="country-card">🇮🇹 Italy</div>
+                <div class="country-card">🇱🇰 Sri Lanka</div>
+                <div class="country-card">🇲🇾 Malaysia</div>
+                <div class="country-card">🇧🇩 Bangladesh</div>
+            </div>
+        </section>
+
+        <section id="laboratory" class="section">
+            <h2>SDON Laboratory Infrastructure</h2>
+            <div class="sdon-technologies">
+                <div class="sdon-card">
+                    <div class="sdon-icon">🌐</div>
+                    <h3>Software Defined Networking</h3>
+                    <p>SDN controllers, ONOS, POX frameworks for programmable network control and automation</p>
+                </div>
+                <div class="sdon-card">
+                    <div class="sdon-icon">💡</div>
+                    <h3>Optical Transponders</h3>
+                    <p>White-box optical systems with open interfaces for flexible wavelength management</p>
+                </div>
+                <div class="sdon-card">
+                    <div class="sdon-icon">🔀</div>
+                    <h3>ROADM Systems</h3>
+                    <p>Reconfigurable Optical Add-Drop Multiplexers for dynamic wavelength routing</p>
+                </div>
+                <div class="sdon-card">
+                    <div class="sdon-icon">🧪</div>
+                    <h3>Test Equipment</h3>
+                    <p>Advanced measurement tools for optical signal quality and network performance testing</p>
+                </div>
+                <div class="sdon-card">
+                    <div class="sdon-icon">🖥️</div>
+                    <h3>Remote Access Platform</h3>
+                    <p>VPN-based global access via TEIN-PERN links for distributed research collaboration</p>
+                </div>
+                <div class="sdon-card">
+                    <div class="sdon-icon">🤖</div>
+                    <h3>Machine Learning</h3>
+                    <p>AI-powered Quality of Transmission (QoT) estimation and network optimization</p>
+                </div>
+            </div>
+
+            <div class="lab-equipment">
+                <h3>🔧 Laboratory Equipment & Tools</h3>
+                <p>State-of-the-art optical networking hardware and software for research and training:</p>
+                <div class="equipment-grid">
+                    <div class="equipment-item">Open Transponders</div>
+                    <div class="equipment-item">ROADM Systems</div>
+                    <div class="equipment-item">Test Servers</div>
+                    <div class="equipment-item">SDN Controllers</div>
+                    <div class="equipment-item">Mininet Emulation</div>
+                    <div class="equipment-item">Network Slicing</div>
+                    <div class="equipment-item">QoT Estimation</div>
+                    <div class="equipment-item">Virtualization Tools</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="training" class="section">
+            <h2>Training Program & Research Activities</h2>
+            <div class="training-program">
+                <div class="training-step">
+                    <div class="step-icon">👨‍🏫</div>
+                    <div class="step-content">
+                        <h4>Train-the-Trainer Program (RP1)</h4>
+                        <p>Remote training led by SSSA Italy, involving 8 NUST researchers in optical networking hardware, SDN software, and open networking tools.</p>
+                    </div>
+                </div>
+                <div class="training-step">
+                    <div class="step-icon">🏗️</div>
+                    <div class="step-content">
+                        <h4>Lab Infrastructure Development</h4>
+                        <p>Design and procurement of open transponders, ROADM systems, test equipment, and servers with remote access capabilities.</p>
+                    </div>
+                </div>
+                <div class="training-step">
+                    <div class="step-icon">🌐</div>
+                    <div class="step-content">
+                        <h4>Remote Access Implementation</h4>
+                        <p>VPN-based global access via PERN-TEIN link for all TEIN partners with request system establishment.</p>
+                    </div>
+                </div>
+                <div class="training-step">
+                    <div class="step-icon">🎓</div>
+                    <div class="step-content">
+                        <h4>Student Research Program</h4>
+                        <p>Engagement of 8 postgraduate students in SDON research including QoT estimation, virtualization, and machine learning.</p>
+                    </div>
+                </div>
+                <div class="training-step">
+                    <div class="step-icon">💰</div>
+                    <div class="step-content">
+                        <h4>Techno-Economic Analysis</h4>
+                        <p>Assessment of disaggregated optical network models and SDON CAPEX/OPEX implications for NRENs.</p>
+                    </div>
+                </div>
+                <div class="training-step">
+                    <div class="step-icon">🎪</div>
+                    <div class="step-content">
+                        <h4>Hybrid Training Workshop</h4>
+                        <p>4-day SDON training event (Oct 2021) with 55 participants covering SDN controllers, emulation, and vendor-neutral technologies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="covid-adaptation">
+                <h4>🦠 COVID-19 Adaptation Success</h4>
+                <p>Despite pandemic delays affecting equipment shipments and travel restrictions, the team successfully completed all work packages through innovative remote collaboration and hybrid training formats.</p>
+            </div>
+        </section>
+
+        <section id="outcomes" class="section outcomes">
+            <h2>Key Achievements & Research Impact</h2>
+            
+            <h3>🚀 Laboratory Establishment Success</h3>
+            <ul style="margin: 1rem 0; padding-left: 2rem;">
+                <li><strong>Operational SDON Lab:</strong> Fully equipped facility at NUST with transponders, ROADMs, and remote access for TEIN partners</li>
+                <li><strong>Global Remote Access:</strong> VPN-based access via TEIN-PERN links available to all partner NRENs</li>
+                <li><strong>Advanced Training Platform:</strong> Comprehensive testbed for SDN, optical networking, and research experimentation</li>
+                <li><strong>Industry Partnerships:</strong> Collaborations with vendors and international research institutions</li>
+            </ul>
+
+            <div class="research-outcomes">
+                <h4>📚 Research Excellence & Publications</h4>
+                <p><strong>8 Students Trained:</strong> Comprehensive skills development in SDN, Mininet, ONOS, POX, and machine learning for QoT estimation.</p>
+                <p><strong>3 Research Publications:</strong> Significant contributions to optical networking research literature with innovative SDON approaches.</p>
+                <p><strong>Techno-Economic Guidance:</strong> Practical cost modeling and upgrade path analysis shared across TEIN and APAN forums for NREN decision-making.</p>
+            </div>
+
+            <h3>🎓 Training & Collaboration Impact</h3>
+            <p><strong>Hybrid Workshop Success:</strong> 4-day training event with 55 participants (25 international, 30 onsite) covering SDN planning, optical testbeds, network slicing, and virtualization.</p>
+            <p><strong>APAN Engagement:</strong> Presentations at APAN-50 & 51 workshops promoting Open Optical Networks adoption and regional collaboration.</p>
+            <p><strong>Wider Collaborations:</strong> MOUs and working partnerships established with LEARN, MYREN, BdREN, and CESNET (GEANT).</p>
+        </section>
+
+        <section id="partners" class="section">
+            <h2>Strategic Partnership Network</h2>
+            <p>Led by NUST Pakistan in partnership with Scuola Superiore Sant'Anna Italy, with comprehensive TEIN NREN collaboration:</p>
+            
+            <div class="partners-grid">
+                <div class="partner-card lead">
+                    <h3>NUST</h3>
+                    <p>National University of Sciences and Technology<br><strong>Lead Institution - Pakistan</strong></p>
+                </div>
+                <div class="partner-card lead">
+                    <h3>SSSA</h3>
+                    <p>Scuola Superiore Sant'Anna<br><strong>Technical Partner - Italy</strong></p>
+                </div>
+                <div class="partner-card">
+                    <h3>PERN</h3>
+                    <p>Pakistan Education and<br>Research Network</p>
+                </div>
+                <div class="partner-card">
+                    <h3>LEARN</h3>
+                    <p>Lanka Education and<br>Research Network</p>
+                </div>
+                <div class="partner-card">
+                    <h3>MYREN</h3>
+                    <p>Malaysia Research &<br>Education Network</p>
+                </div>
+                <div class="partner-card">
+                    <h3>BdREN</h3>
+                    <p>Bangladesh Research and<br>Education Network</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section challenges">
+            <h2>Challenges & Future Directions</h2>
+            
+            <h3>⚠️ Implementation Challenges</h3>
+            <ul style="margin: 1rem 0; padding-left: 2rem;">
+                <li><strong>COVID-19 Delays:</strong> Equipment shipments delayed by months due to global supply chain and travel restrictions</li>
+                <li><strong>Student Exchange Limitations:</strong> Planned international placements (MYREN, LEARN) replaced with virtual engagement</li>
+                <li><strong>Training Format Changes:</strong> Shift to hybrid formats for workshops and APAN events limiting hands-on collaboration</li>
+                <li><strong>Supply Chain Disruptions:</strong> Global semiconductor shortages affecting optical equipment procurement</li>
+            </ul>
+
+            <h3>🚀 Innovation & Expansion Plans</h3>
+            <p><strong>Enhanced Lab Functionality:</strong> Add SD-WAN and 5G optical slicing test modules to laboratory capabilities.</p>
+            <p><strong>Annual SDON School:</strong> Establish recurring regional workshops under PERN-TEIN cooperation for sustained knowledge transfer.</p>
+            <p><strong>Open Testbed API:</strong> Enable researchers to remotely push configurations and run automated experiments across TEIN networks.</p>
+            <p><strong>Next-Gen Planning Tools:</strong> Utilize research outputs to build NREN-specific SDN planning frameworks and deployment guides.</p>
+        </section>
+
+        <section id="future" class="section">
+            <h2>Sustainable Development Goals</h2>
+            <p>This optical networking research laboratory contributes to advanced telecommunications infrastructure and education:</p>
+            <div class="sdg-badges">
+                <div class="sdg-badge">SDG 4: Quality Education</div>
+                <div class="sdg-badge">SDG 9: Innovation & Infrastructure</div>
+                <div class="sdg-badge">SDG 17: Partnerships for Goals</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Project Details</h3>
+                    <p>Category: WP4 (Work Package 4)</p>
+                    <p>Call: 3rd Call</p>
+                    <p>Focus: Optical Networks Research</p>
+                    <p>Lead: Pakistan 🇵🇰 (NUST)</p>
+                    <p>Partner: Italy 🇮🇹 (SSSA)</p>
+                </div>
+                <div class="footer-section">
+                    <h3>SDON Technologies</h3>
+                    <p>• Software Defined Networking</p>
+                    <p>• Optical Transponders</p>
+                    <p>• ROADM Systems</p>
+                    <p>• Remote Access Platform</p>
+                    <p>• Machine Learning QoT</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Research Impact</h3>
+                    <p>Advancing optical networking capabilities across TEIN NRENs through state-of-the-art laboratory infrastructure, international collaboration, and cutting-edge research in programmable networks.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 SDON Training and Research Laboratory. Led by NUST Pakistan with SSSA Italy. Supported by European Union,
